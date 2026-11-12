@@ -106,6 +106,23 @@ Fallback path — no `qasida` on `PATH`, `QASIDA_BIN=$HOME/workspace/forge-v2/fo
 Scope: only the two bar tests + drivers were run (per brief — not all 126).
 README build commands are exactly the commands run above.
 
-## Push
+## Push — DONE 12 Nov 2026 ~14:31 IST
 
-<!-- filled in after the push; see parent report for the ref -->
+- Method: Git Data API tree build (adapted `~/workspace/scripts/push_forge.py`,
+  script `~/workspace/push_moonos.py`). 300 files, 300 blobs, 0 retries needed.
+- Old remote state (verified by API read before push): commit
+  `0adaa818288a3ed02a710e023f8d88546495fd57`, single file `README.md`, blob
+  `c13d217f00650bfe86412dbc4117d9350ef4b755`, 9 bytes (`# MOON-OS`).
+  **Superseded**: the staged `README.md` (5,607 bytes) replaced it at the same
+  path — the carry-over only preserves remote-only files, and `README.md`
+  was in the staged tree, so nothing of the old README survives.
+- New commit: `2721a87a5fd8a883cd0ebea7227283e92e2d012f`, new tree
+  `6089212453b2c16f3f16a7804bf6b39fcd44706b`. Ref `main` updated and verified
+  (`verified ref` == new commit). No tag, no release.
+- Contents-API read-back at the new commit (script `/tmp/moonos_readback.py`):
+  all 12 key files MATCH by blob SHA, remote tree 300 blobs = 300 local files.
+  Key blobs: `README.md` `68c685597e0059c70e1809afdfbe128ad63b266a`;
+  `examples/os/kernel_idle.fg` `72d9fef71ee32112a5bf46f662ab8d50c1b92264`
+  (same blob SHA as the RED-MOON- push recorded in `docs/PROGRESS.md`);
+  `examples/os/kernel_unified.fg` `fca82a8a6ff0783e825098cc7f8d47acf1f1f297`;
+  `tests/test_kernel_idle.py` `afce73dfd5ddb11e8470b20fd18f9d7d8f8dd4e7`.
