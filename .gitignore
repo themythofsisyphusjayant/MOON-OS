@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+*.vvp
+examples/os/*_soc2.fg
+.venv/
