@@ -114,13 +114,15 @@ Full history: `docs/PROGRESS.md`.
 
 ### ✅ Verified test results
 
-Re-verified 12 Nov 2026 from this tree (pip-installed qasida 2.1.0 in a fresh venv, plus a re-run via a `forge.py` checkout — same results both ways):
+Full standalone run, 12 Nov 2026, from this tree (fresh venv, `pip install qasida` 2.2.0): **117/117 pass, 0 fail — 499 checks in 33.9 s.** The 9 SOC2-only tests printed their loud skip and exited 0 (counted as skipped, never as passes). The three headline tests:
 
 | Test | Result |
 |---|---|
 | `test_kernel_idle.py` | **8/8 PASS** — exact transcript `KERNA8DONE`, wake tick 8, final tick 9, 10,250 steps |
 | `test_kernel_unified.py` | **7/7 PASS** — exact shell-tour transcript, 25 timer ticks, net 4/3/1 |
 | `test_kernel_drivers.py` | **5/5 PASS** — exact transcript `KERNBADONE`, 7 timer ticks |
+| **All 117 standalone tests** | **117/117 PASS — 499 checks, 0 failures, 33.9 s** |
+| 9 SOC2-only tests (`fb`, `finder`, `full`, `mac`, `mac_int`, `netdev`, `pix`, `term`, `uart16550_soc2`) | **SKIPPED** — need a BIG-32 checkout + `iverilog` (see below) |
 
 ---
 

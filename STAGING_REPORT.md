@@ -103,7 +103,7 @@ venv bin, run from `~/workspace/os-repo-staging`:
 Fallback path — no `qasida` on `PATH`, `QASIDA_BIN=$HOME/workspace/forge-v2/forge.py`:
 `tests/test_kernel_idle.py` **8/8 PASS**, exit 0.
 
-Scope: only the two bar tests + drivers were run (per brief — not all 126).
+Scope at staging: only the two bar tests + drivers were run (per brief — not all 126). **Superseded 12 Nov 2026 ~18:30 IST: full standalone run — 117/117 pass, 0 fail, 9 SOC2 skipped, 499 checks, 33.9 s** (runner `~/workspace/blackmoon-iso/os/fullrun/run_all.py`, log `fullrun_20261112_125804-27566-84568.log`, checkpoint `checkpoint.json`; compiler: fresh venv, `pip install qasida==2.2.0`).
 README build commands are exactly the commands run above.
 
 ## Push — DONE 12 Nov 2026 ~14:31 IST
