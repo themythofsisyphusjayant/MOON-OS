@@ -98,7 +98,7 @@ venv bin, run from `~/workspace/os-repo-staging`:
 | --- | --- | --- |
 | `python tests/test_kernel_idle.py` | **8/8 PASS** — `KERNA8DONE`, wake tick 8, final tick 9 | 0 |
 | `python tests/test_kernel_unified.py` | **7/7 PASS** — exact shell-tour transcript, 25 ticks, net 4/3/1 | 0 |
-| `python tests/test_kernel_drivers.py` | **6/6 PASS** — `KERNBADONE`, 7 ticks | 0 |
+| `python tests/test_kernel_drivers.py` | **5/5 PASS** — `KERNBADONE`, 7 ticks | 0 |
 
 Fallback path — no `qasida` on `PATH`, `QASIDA_BIN=$HOME/workspace/forge-v2/forge.py`:
 `tests/test_kernel_idle.py` **8/8 PASS**, exit 0.
