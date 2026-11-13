@@ -37,9 +37,16 @@ The demo tour is offline and deterministic, and it is wired into
   `_start`), raw memory (`peek32`/`poke32`), bitwise operators,
   CSR builtins, an `ecall` builtin, and a `trap_handler` hook —
   the pieces a bootable kernel needs. The from-scratch kernel
-  track (Phases A–D done, first kernel next) lives in
-  `docs/FREESTANDING.md`; JalOS's ideas feed that kernel, but
-  JalOS the program does not become it. What Qasida still
+  track (Phases A–F done, plus the idle task) lives in
+  `docs/FREESTANDING.md` and `docs/PROGRESS.md`, and the kernels
+  exist: `kernel_unified.fg` (all Phase F subsystems in one kernel,
+  idle task integrated 13 Nov 2026), `kernel_idle.fg` (the idle task
+  standalone), `kernel_drivers.fg` (UART + timer drivers),
+  `kernel_mac.fg` (static macOS-look desktop),
+  `kernel_mac_interactive.fg` (interactive desktop: pointer, drag,
+  close, live clock), and `kernel_full.fg` (every subsystem and
+  device in one program). JalOS's ideas feed those kernels, but
+  JalOS the program does not become them. What Qasida still
   lacks for kernel work: pointers and inline assembly.
 - **No GUI.** No graphics builtins exist, so the desktop is the
   text shell. A TUI window manager over ANSI escapes is possible

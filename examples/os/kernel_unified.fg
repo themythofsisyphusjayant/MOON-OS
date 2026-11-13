@@ -12,8 +12,11 @@
 // are resolved here, not papered over):
 //   0x8000 proc table, 4 slots x 16 bytes
 //     [state, frame, mepc, exit_code-or-wake_tick]
+//     states: 0 free, 1 ready, 2 running, 3 done, 4 sleeping,
+//     5 idle (never picked by next_ready; only the explicit
+//     no-ready paths switch to it)
 //   0x8040 current pid, 0x8044 last spawned pid,
-//     0x8048 tick count
+//     0x8048 tick count, 0x804C idle pid (-1 until spawned)
 //   0x8050 allocator bump pointer (heap below)
 //   0x8060 FS next bump block, 0x8064 FS free-list head
 //   0x8070 FS file table, 8 slots x 16 bytes
@@ -25,23 +28,37 @@
 //   0x8400-0x8800 bump heap (1 KB)
 //   0x8800-0x8C00 loopback buffer, 256 words
 //   0x8C00-0x9C00 FS data blocks, 16 x 256 bytes
-//   stacks: slot1 top 0xE000, slot2 top 0xC000, each 8192
-//     apart; main stack top 0xFFFC.
+//   stacks: slot1 top 0xE000 (idle task), slot2 top 0xC000
+//     (the one child slot), each 8192 apart; main stack top
+//     0xFFFC.
 //   All kernel data lives below 0xA000, clear of both child
 //   stack regions (0xA000-0xC000 and 0xC000-0xE000).
-// HONEST LIMIT, carried over: only 2 child slots fit. A
-// third child stack (top 0xA000) would grow down through
-// every kernel region, so spawn scans slots 1-2 only and
-// returns -1 when both are busy. Slot 3 stays free forever.
-// Also carried over: no idle task, so the shell never
-// sleeps (a sleeping shell whose last child exits would
-// halt the system); sleep stays available as a syscall.
+// HONEST LIMIT, carried over: only 1 child slot fits once the
+// idle task takes slot 1. A third child stack (top 0xA000)
+// would grow down through every kernel region, so spawn scans
+// slot 2 only and returns -1 when it is busy. Slot 3 stays
+// free forever.
+// IDLE TASK (integrated 13 Nov 2026, mirroring
+// kernel_idle.fg): main spawns the idle task first, so it
+// takes slot 1; its pid is recorded at 0x804C and its state
+// is set to 5. The idle task is a real spawned task, not a
+// special code path, and its body is a tight loop that waits
+// for the next timer interrupt. When no task is ready and a
+// sleeper exists, sleep switches to idle (was: immediate
+// resume), yield switches to idle (was: spin), and exit
+// switches to idle (was: halt at once). With no sleeper the
+// old behaviour is kept (yield returns, exit halts), since
+// nothing could ever wake. The interrupt path restores state
+// 5 when switching away from the idle task, so round-robin
+// never picks it. Sleep is now a real blocking syscall.
 //
 // Shell commands (first character of each line):
 //   h help, p procs, s spawn demo task, w wait last,
 //   m bump-alloc 16 bytes and print the address,
 //   f filesystem script (delete/create/write/readback),
 //   g GUI demo windows, n network demo (ping flow),
+//   z sleep demo: spawn a task that sleeps 5 ticks then
+//     prints its wake tick (exercises the idle task),
 //   q quit, anything else ?.
 // The shell yields while waiting for input and once per
 // iteration; timer ticks preempt on top of that, so tasks
@@ -414,6 +431,19 @@ fn demo_task() {
   put(73);
 }
 
+fn idle_loop() {
+  while 1 == 1 {
+  }
+}
+
+fn sleep_demo_task() {
+  put(90);
+  print_num(peek32(32840));
+  let x = ecall(5, 5);
+  put(75);
+  print_num(peek32(32840));
+}
+
 fn do_exit(code: int) {
   let x = ecall(4, code);
 }
@@ -434,6 +464,17 @@ fn next_ready(cur: int) -> int {
     s = s + 1;
   }
   return 0 - 1;
+}
+
+fn any_sleeping() -> int {
+  let mut s = 0;
+  while s < 4 {
+    if peek32(32768 + s * 16) == 4 {
+      return 1;
+    }
+    s = s + 1;
+  }
+  return 0;
 }
 
 fn switch_to(nxt: int) {
@@ -467,7 +508,11 @@ fn trap_handler(frame: int) {
     let curbase = 32768 + cur * 16;
     poke32(curbase + 4, frame);
     poke32(curbase + 8, csr_read(833));
-    poke32(curbase, 1);
+    if cur == peek32(32844) {
+      poke32(curbase, 5);
+    } else {
+      poke32(curbase, 1);
+    }
     switch_to(nxt);
     return;
   }
@@ -477,7 +522,10 @@ fn trap_handler(frame: int) {
   let ret = csr_read(833) + 4;
   let eid = peek32(frame + 60);
   if eid == 2 {
-    let mut s = 1;
+    let mut s = 2;
+    if peek32(32844) == 0 - 1 {
+      s = 1;
+    }
     let mut slot = 0 - 1;
     while s < 3 {
       if peek32(32768 + s * 16) == 0 {
@@ -511,6 +559,12 @@ fn trap_handler(frame: int) {
   if eid == 3 {
     let nxt = next_ready(cur);
     if nxt == 0 - 1 {
+      if any_sleeping() == 1 {
+        poke32(curbase + 8, ret);
+        poke32(curbase, 1);
+        switch_to(peek32(32844));
+        return;
+      }
       csr_write(833, ret);
       return;
     }
@@ -524,6 +578,10 @@ fn trap_handler(frame: int) {
     poke32(curbase + 12, peek32(frame + 32));
     let nxt = next_ready(cur);
     if nxt == 0 - 1 {
+      if any_sleeping() == 1 {
+        switch_to(peek32(32844));
+        return;
+      }
       csr_write(773, 0);
       let h = ecall(0, 0);
       return;
@@ -537,8 +595,8 @@ fn trap_handler(frame: int) {
     poke32(curbase, 4);
     let nxt = next_ready(cur);
     if nxt == 0 - 1 {
-      poke32(curbase, 2);
-      csr_write(833, ret);
+      poke32(curbase + 8, ret);
+      switch_to(peek32(32844));
       return;
     }
     poke32(curbase + 8, ret);
@@ -659,6 +717,7 @@ fn main() {
   poke32(32832, 0);
   poke32(32836, 0 - 1);
   poke32(32840, 0);
+  poke32(32844, 0 - 1);
   poke32(32848, 33792);
   fs_format();
   poke32(33520, 0);
@@ -673,6 +732,15 @@ fn main() {
   put(10);
   timer_set_cmp(1000);
   timer_enable();
+  let ip = ecall(2, 0);
+  if ip == 0 {
+    idle_loop();
+    do_exit(0);
+  }
+  if ip > 0 {
+    poke32(32844, ip);
+    poke32(32768 + ip * 16, 5);
+  }
   let mut y = 0;
   let mut running = 1;
   while running == 1 {
@@ -770,6 +838,19 @@ fn main() {
       cmd_gui();
     } else if cmd == 110 {
       cmd_net();
+    } else if cmd == 122 {
+      let pid = ecall(2, 0);
+      if pid == 0 {
+        sleep_demo_task();
+        do_exit(0);
+      }
+      if pid > 0 {
+        poke32(32836, pid);
+      }
+      if pid == 0 - 1 {
+        put(63);
+        put(10);
+      }
     } else if cmd == 113 {
       put(66);
       put(89);
