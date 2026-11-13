@@ -1,0 +1,22 @@
+// diff — daily-ten 13 Nov 2026 (OS track).
+// Simulates `diff` on two fixed 4-line texts, line by
+// line: old is alpha, beta, gamma, delta; new is alpha,
+// beta2, gamma, epsilon. For each differing line prints
+// the 1-based line number, the old line, then the new
+// line; finally the count of differing lines (2).
+fn main() {
+    let old: [str] = ["alpha", "beta", "gamma", "delta"];
+    let new: [str] = ["alpha", "beta2", "gamma", "epsilon"];
+    let mut diffs: int = 0;
+    let mut i: int = 0;
+    while i < len(old) {
+        if old[i] != new[i] {
+            println(i + 1);
+            println(old[i]);
+            println(new[i]);
+            diffs = diffs + 1;
+        }
+        i = i + 1;
+    }
+    println(diffs);
+}

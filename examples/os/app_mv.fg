@@ -1,0 +1,35 @@
+// mv — daily-ten 13 Nov 2026 (OS track).
+// Simulates mv (rename) on a fixed in-memory file list:
+// old.txt, keep.txt, data.csv; mv old.txt -> new.txt,
+// mv gone.txt fails with a not-found error. Lists the
+// files and the count.
+fn main() {
+    let mut names: [str] = ["old.txt", "keep.txt", "data.csv"];
+    let mut count: int = 3;
+    let mut found: bool = false;
+    let mut i: int = 0;
+    while i < count {
+        if names[i] == "old.txt" {
+            names[i] = "new.txt";
+            found = true;
+        }
+        i = i + 1;
+    }
+    let mut gone: bool = false;
+    let mut j: int = 0;
+    while j < count {
+        if names[j] == "gone.txt" {
+            gone = true;
+        }
+        j = j + 1;
+    }
+    if gone == false {
+        println("mv: gone.txt not found");
+    }
+    let mut k: int = 0;
+    while k < count {
+        println(names[k]);
+        k = k + 1;
+    }
+    println(count);
+}

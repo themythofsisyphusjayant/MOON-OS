@@ -1,0 +1,21 @@
+// more — daily-ten 13 Nov 2026 (OS track).
+// Simulates a pager over 7 fixed lines with a page size
+// of 3: prints "--More--" between pages, then the total
+// line count (7).
+fn main() {
+    let lines: [str] = ["one", "two", "three", "four", "five", "six", "seven"];
+    let mut i: int = 0;
+    let mut page: int = 0;
+    while i < len(lines) {
+        println(lines[i]);
+        page = page + 1;
+        if page == 3 {
+            if i + 1 < len(lines) {
+                println("--More--");
+            }
+            page = 0;
+        }
+        i = i + 1;
+    }
+    println(len(lines));
+}

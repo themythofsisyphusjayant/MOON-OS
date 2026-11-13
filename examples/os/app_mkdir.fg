@@ -1,0 +1,37 @@
+// mkdir — daily-ten 13 Nov 2026 (OS track).
+// Simulates mkdir on a fixed in-memory directory table:
+// dirs src, docs; mkdir tests succeeds, mkdir src fails
+// with an exists error. Lists the directories and the count.
+fn main() {
+    let mut dirs: [str] = ["src", "docs", "", ""];
+    let mut count: int = 2;
+    let mut found: bool = false;
+    let mut i: int = 0;
+    while i < count {
+        if dirs[i] == "tests" {
+            found = true;
+        }
+        i = i + 1;
+    }
+    if found == false {
+        dirs[count] = "tests";
+        count = count + 1;
+    }
+    let mut exists: bool = false;
+    let mut j: int = 0;
+    while j < count {
+        if dirs[j] == "src" {
+            exists = true;
+        }
+        j = j + 1;
+    }
+    if exists {
+        println("mkdir: src exists");
+    }
+    let mut k: int = 0;
+    while k < count {
+        println(dirs[k]);
+        k = k + 1;
+    }
+    println(count);
+}

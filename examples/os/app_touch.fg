@@ -1,0 +1,36 @@
+// touch — daily-ten 13 Nov 2026 (OS track).
+// Simulates touch on a fixed in-memory file table: updates
+// the mtime of an existing file and creates a missing one.
+// notes.txt 100, todo.fg 200, README.md 300; touch todo.fg
+// -> 999, touch new.txt -> created with mtime 999.
+fn main() {
+    let mut names: [str] = ["notes.txt", "todo.fg", "README.md", ""];
+    let mut mtimes: [int] = [100, 200, 300, 0];
+    let mut count: int = 3;
+    let mut i: int = 0;
+    while i < count {
+        if names[i] == "todo.fg" {
+            mtimes[i] = 999;
+        }
+        i = i + 1;
+    }
+    let mut found: bool = false;
+    let mut j: int = 0;
+    while j < count {
+        if names[j] == "new.txt" {
+            found = true;
+        }
+        j = j + 1;
+    }
+    if found == false {
+        names[count] = "new.txt";
+        mtimes[count] = 999;
+        count = count + 1;
+    }
+    let mut k: int = 0;
+    while k < count {
+        println(names[k], mtimes[k]);
+        k = k + 1;
+    }
+    println(count);
+}

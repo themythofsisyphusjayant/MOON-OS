@@ -1,0 +1,42 @@
+// rm — daily-ten 13 Nov 2026 (OS track).
+// Simulates rm on a fixed in-memory file list: a.txt, b.txt,
+// c.txt, d.txt; rm b.txt shifts the rest left, rm x.txt
+// fails with a not-found error. Lists the survivors and
+// the count.
+fn main() {
+    let mut names: [str] = ["a.txt", "b.txt", "c.txt", "d.txt"];
+    let mut count: int = 4;
+    let mut idx: int = -1;
+    let mut i: int = 0;
+    while i < count {
+        if names[i] == "b.txt" {
+            idx = i;
+        }
+        i = i + 1;
+    }
+    if idx >= 0 {
+        let mut j: int = idx;
+        while j + 1 < count {
+            names[j] = names[j + 1];
+            j = j + 1;
+        }
+        count = count - 1;
+    }
+    let mut found: bool = false;
+    let mut k: int = 0;
+    while k < count {
+        if names[k] == "x.txt" {
+            found = true;
+        }
+        k = k + 1;
+    }
+    if found == false {
+        println("rm: x.txt not found");
+    }
+    let mut m: int = 0;
+    while m < count {
+        println(names[m]);
+        m = m + 1;
+    }
+    println(count);
+}

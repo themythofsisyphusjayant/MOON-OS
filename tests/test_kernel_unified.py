@@ -4,9 +4,11 @@
 Every Phase F subsystem in a single program on a single
 memory map: processes + preemptive timer (checkpoints 5+8),
 bump allocator (1), filesystem v2 (4), shell REPL (6), ANSI
-GUI windows (7), loopback network stack (9). Only 2 child
-slots fit (a third stack would grow down through the kernel
-regions), and the shell never sleeps (no idle task yet).
+GUI windows (7), loopback network stack (9), plus the idle
+task in slot 1 (state 5) integrated 13 Nov 2026: only 1 child
+slot fits (slot 2), and sleep() now really blocks — when no
+task is ready and a sleeper exists the scheduler runs the
+idle task until the next timer interrupt wakes the sleeper.
 
 The kernel (examples/os/kernel_unified.fg) is fed one line
 per shell command: h, p, s, w, m, f, g, n, q. Expects the
@@ -54,7 +56,7 @@ EXPECTED = ("KERN\n"
             "> h\n"
             "h p s w m f g n q\n"
             "> p\n"
-            "P0:2 P1:0 P2:0 P3:0 \n"
+            "P0:2 P1:5 P2:0 P3:0 \n"
             "> s\n"
             "HI> w\n"
             "W0\n"
@@ -106,8 +108,8 @@ def main():
         check("exact transcript", uart == EXPECTED, repr(uart))
         check("halts", res["halted"] is True)
         d = res["dmem"]
-        check("final states [running, done, free, free]",
-              [word(d, 0x8000 + 16 * i) for i in range(4)] == [2, 3, 0, 0])
+        check("final states [running, idle, done, free]",
+              [word(d, 0x8000 + 16 * i) for i in range(4)] == [2, 5, 3, 0])
         check("timer fired repeatedly", word(d, 0x8048) >= 10,
               str(word(d, 0x8048)))
         check("heap bump advanced one alloc", word(d, 0x8050) == 33808)

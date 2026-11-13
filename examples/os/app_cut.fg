@@ -1,0 +1,38 @@
+// cut — daily-ten 13 Nov 2026 (OS track).
+// Simulates `cut -d: -f2` then `-f3` on three fixed
+// colon-separated lines by scanning for the ':' separators
+// with substr: alice:dev:1001, bob:ops:1002, carol:qa:1003.
+// Field 2: dev, ops, qa. Field 3: 1001, 1002, 1003.
+fn cut_field(line: str, which: int) -> str {
+    let mut first: int = -1;
+    let mut second: int = -1;
+    let mut i: int = 0;
+    while i < len(line) {
+        if substr(line, i, 1) == ":" {
+            if first < 0 {
+                first = i;
+            } else {
+                second = i;
+            }
+        }
+        i = i + 1;
+    }
+    if which == 2 {
+        return substr(line, first + 1, second - first - 1);
+    }
+    return substr(line, second + 1, len(line) - second - 1);
+}
+
+fn main() {
+    let lines: [str] = ["alice:dev:1001", "bob:ops:1002", "carol:qa:1003"];
+    let mut i: int = 0;
+    while i < len(lines) {
+        println(cut_field(lines[i], 2));
+        i = i + 1;
+    }
+    let mut j: int = 0;
+    while j < len(lines) {
+        println(cut_field(lines[j], 3));
+        j = j + 1;
+    }
+}

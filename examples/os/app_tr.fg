@@ -1,0 +1,48 @@
+// tr — daily-ten 13 Nov 2026 (OS track).
+// Simulates `tr aeiou 12345`: each vowel maps to a digit,
+// other characters pass through. "hello world" ->
+// "h2ll4 w4rld" (3 replaced), "qasida" -> "q1s3d1"
+// (3 replaced), total replaced 6.
+fn tr_char(ch: str) -> str {
+    let from: str = "aeiou";
+    let to: str = "12345";
+    let mut i: int = 0;
+    while i < len(from) {
+        if substr(from, i, 1) == ch {
+            return substr(to, i, 1);
+        }
+        i = i + 1;
+    }
+    return ch;
+}
+
+fn main() {
+    let mut total: int = 0;
+    let mut out1: str = "";
+    let s1: str = "hello world";
+    let mut i: int = 0;
+    while i < len(s1) {
+        let c: str = substr(s1, i, 1);
+        let t: str = tr_char(c);
+        if t != c {
+            total = total + 1;
+        }
+        out1 = out1 + t;
+        i = i + 1;
+    }
+    println(out1);
+    let mut out2: str = "";
+    let s2: str = "qasida";
+    let mut j: int = 0;
+    while j < len(s2) {
+        let c: str = substr(s2, j, 1);
+        let t: str = tr_char(c);
+        if t != c {
+            total = total + 1;
+        }
+        out2 = out2 + t;
+        j = j + 1;
+    }
+    println(out2);
+    println(total);
+}

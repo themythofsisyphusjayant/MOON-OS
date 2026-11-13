@@ -1,0 +1,30 @@
+// cal — daily-ten 13 Nov 2026 (OS track).
+// Prints the November 2026 calendar. 1 Nov 2026 is a
+// Sunday (verified with `date`), so the month starts in
+// column 0 and fills 5 weeks; November has 30 days.
+// The grid is built with print/println over days 1..30,
+// then the day count (30) is printed.
+fn main() {
+    let days: int = 30;
+    println("November 2026");
+    println("Su Mo Tu We Th Fr Sa");
+    let mut col: int = 0;
+    let mut day: int = 1;
+    while day <= days {
+        print(day);
+        if col == 6 {
+            println("");
+            col = 0;
+        } else {
+            if day < days {
+                print(" ");
+            }
+            col = col + 1;
+        }
+        day = day + 1;
+    }
+    if col != 0 {
+        println("");
+    }
+    println(days);
+}
