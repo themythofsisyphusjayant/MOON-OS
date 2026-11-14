@@ -1,0 +1,34 @@
+// basename — daily-ten 14 Nov 2026 (OS track).
+// Simulates `basename` on four fixed paths: strips trailing
+// slashes, then returns the text after the last '/' (or the
+// whole string when there is no slash).
+// /home/jayant/notes.txt -> notes.txt; /etc/hosts -> hosts;
+// README.md -> README.md; /var/log/ -> log. Then the count (4).
+fn basename(p: str) -> str {
+    let mut s: str = p;
+    while len(s) > 0 && substr(s, len(s) - 1, 1) == "/" {
+        s = substr(s, 0, len(s) - 1);
+    }
+    let mut last: int = -1;
+    let mut i: int = 0;
+    while i < len(s) {
+        if substr(s, i, 1) == "/" {
+            last = i;
+        }
+        i = i + 1;
+    }
+    if last < 0 {
+        return s;
+    }
+    return substr(s, last + 1, len(s) - last - 1);
+}
+
+fn main() {
+    let paths: [str] = ["/home/jayant/notes.txt", "/etc/hosts", "README.md", "/var/log/"];
+    let mut i: int = 0;
+    while i < len(paths) {
+        println(basename(paths[i]));
+        i = i + 1;
+    }
+    println(len(paths));
+}

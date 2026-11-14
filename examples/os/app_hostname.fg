@@ -1,0 +1,10 @@
+// hostname — daily-ten 14 Nov 2026 (OS track).
+// Simulates `hostname`: the host table holds
+// ["moonbox", "big32", "jalpari"] with the current host at
+// index 0; prints the name and its length (moonbox, 7).
+fn main() {
+    let hosts: [str] = ["moonbox", "big32", "jalpari"];
+    let current: int = 0;
+    println(hosts[current]);
+    println(len(hosts[current]));
+}

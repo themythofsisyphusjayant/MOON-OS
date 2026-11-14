@@ -1,0 +1,11 @@
+// whoami — daily-ten 14 Nov 2026 (OS track).
+// Simulates `whoami`: the session table holds ["root", "jayant"]
+// with the current user at index 1; prints the name and uid
+// (jayant, 1000).
+fn main() {
+    let users: [str] = ["root", "jayant"];
+    let uids: [int] = [0, 1000];
+    let current: int = 1;
+    println(users[current]);
+    println(uids[current]);
+}

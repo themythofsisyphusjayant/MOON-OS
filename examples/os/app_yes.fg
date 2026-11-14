@@ -1,0 +1,11 @@
+// yes — daily-ten 14 Nov 2026 (OS track).
+// Simulates `yes` bounded to five repetitions: prints "y"
+// five times, then the repeat count (5).
+fn main() {
+    let mut i: int = 0;
+    while i < 5 {
+        println("y");
+        i = i + 1;
+    }
+    println(5);
+}

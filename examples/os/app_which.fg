@@ -1,0 +1,35 @@
+// which — daily-ten 14 Nov 2026 (OS track).
+// Simulates `which` over a fixed command table (name -> dir):
+// ls lives in /usr/bin, cat in /bin, qasida in
+// /home/jayant/bin. Queries ls, qasida, nope: prints the full
+// path for hits, "which: nope not found" for the miss, then
+// the hit count (2).
+fn which(name: str) -> str {
+    let names: [str] = ["ls", "cat", "qasida"];
+    let dirs: [str] = ["/usr/bin", "/bin", "/home/jayant/bin"];
+    let mut i: int = 0;
+    while i < len(names) {
+        if names[i] == name {
+            return dirs[i] + "/" + name;
+        }
+        i = i + 1;
+    }
+    return "";
+}
+
+fn main() {
+    let queries: [str] = ["ls", "qasida", "nope"];
+    let mut found: int = 0;
+    let mut i: int = 0;
+    while i < len(queries) {
+        let hit: str = which(queries[i]);
+        if len(hit) > 0 {
+            println(hit);
+            found = found + 1;
+        } else {
+            println("which: " + queries[i] + " not found");
+        }
+        i = i + 1;
+    }
+    println(found);
+}

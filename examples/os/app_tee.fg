@@ -1,0 +1,18 @@
+// tee — daily-ten 14 Nov 2026 (OS track).
+// Simulates `tee`: each of three fixed lines is printed once
+// as stdout and once prefixed with "file: " as the copy that
+// would go to the file. Then the line count (3).
+fn main() {
+    let lines: [str] = ["alpha", "beta", "gamma"];
+    let mut i: int = 0;
+    while i < len(lines) {
+        println(lines[i]);
+        i = i + 1;
+    }
+    let mut j: int = 0;
+    while j < len(lines) {
+        println("file: " + lines[j]);
+        j = j + 1;
+    }
+    println(len(lines));
+}

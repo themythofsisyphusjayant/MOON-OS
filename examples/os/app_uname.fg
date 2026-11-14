@@ -1,0 +1,13 @@
+// uname — daily-ten 14 Nov 2026 (OS track).
+// Simulates `uname -a` over a fixed system table: sysname,
+// nodename, release, version, machine; then the field count (5).
+// MOON-OS, moonbox, 2.2.0, Qasida, riscv32.
+fn main() {
+    let fields: [str] = ["MOON-OS", "moonbox", "2.2.0", "Qasida", "riscv32"];
+    let mut i: int = 0;
+    while i < len(fields) {
+        println(fields[i]);
+        i = i + 1;
+    }
+    println(len(fields));
+}

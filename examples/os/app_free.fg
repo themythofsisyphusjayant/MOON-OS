@@ -1,0 +1,25 @@
+// free — daily-ten 14 Nov 2026 (OS track).
+// Simulates `free` (KB) over a fixed memory table: total 8192,
+// used 4096, free 4096, shared 512, buffers 256, cached 1024.
+// Prints each line, then the check used + free = 8192.
+fn main() {
+    let total: int = 8192;
+    let used: int = 4096;
+    let free_kb: int = 4096;
+    let shared: int = 512;
+    let buffers: int = 256;
+    let cached: int = 1024;
+    print("total ");
+    println(total);
+    print("used ");
+    println(used);
+    print("free ");
+    println(free_kb);
+    print("shared ");
+    println(shared);
+    print("buffers ");
+    println(buffers);
+    print("cached ");
+    println(cached);
+    println(used + free_kb);
+}
