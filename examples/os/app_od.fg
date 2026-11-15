@@ -1,0 +1,17 @@
+// od — daily-ten 15 Nov 2026 (OS track).
+// Simulates `od -b` (octal dump) over the bytes of "Hi!":
+// 72 -> 110, 105 -> 151, 33 -> 41 (octal shown as an int).
+// Prints "decimal octal" per byte, then the byte count (3).
+fn octal(b: int) -> int {
+    return (b / 64) * 100 + ((b % 64) / 8) * 10 + (b % 8);
+}
+
+fn main() {
+    let bytes: [int] = [72, 105, 33];
+    let mut i: int = 0;
+    while i < len(bytes) {
+        println(bytes[i], octal(bytes[i]));
+        i = i + 1;
+    }
+    println(len(bytes));
+}

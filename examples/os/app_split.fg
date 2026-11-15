@@ -1,0 +1,13 @@
+// split — daily-ten 15 Nov 2026 (OS track).
+// Simulates splitting one comma-separated line into fields:
+// "red,green,blue,yellow" -> red, green, blue, yellow.
+// Prints each field, then the field count (4).
+fn main() {
+    let fields: [str] = split("red,green,blue,yellow", ",");
+    let mut i: int = 0;
+    while i < len(fields) {
+        println(fields[i]);
+        i = i + 1;
+    }
+    println(len(fields));
+}

@@ -1,0 +1,14 @@
+// paste — daily-ten 15 Nov 2026 (OS track).
+// Simulates `paste -d :` on two fixed columns: left
+// (alpha, beta, gamma) and right (1, 2, 3). Prints each
+// "left:right" pair, then the row count (3).
+fn main() {
+    let left: [str] = ["alpha", "beta", "gamma"];
+    let right: [str] = ["1", "2", "3"];
+    let mut i: int = 0;
+    while i < len(left) {
+        println(left[i] + ":" + right[i]);
+        i = i + 1;
+    }
+    println(len(left));
+}

@@ -1,0 +1,19 @@
+// lsmod — daily-ten 15 Nov 2026 (OS track).
+// Simulates `lsmod` over a fixed module table: virtio_blk
+// 8192 used by 1; ext4 40960 used by 2; qasida_net 16384 used
+// by 0. Prints "name size used" per module, then the total
+// size (8192 + 40960 + 16384 = 65536) and the module count (3).
+fn main() {
+    let names: [str] = ["virtio_blk", "ext4", "qasida_net"];
+    let sizes: [int] = [8192, 40960, 16384];
+    let used: [int] = [1, 2, 0];
+    let mut total: int = 0;
+    let mut i: int = 0;
+    while i < len(names) {
+        println(names[i], sizes[i], used[i]);
+        total = total + sizes[i];
+        i = i + 1;
+    }
+    println(total);
+    println(len(names));
+}

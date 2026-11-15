@@ -1,0 +1,35 @@
+// expand — daily-ten 15 Nov 2026 (OS track).
+// Simulates `expand` (tab stops every 4 columns) on three
+// fixed lines: "a\tb" -> "a   b"; "ab\tc" -> "ab  c";
+// "abcd\te" -> "abcd    e". Then the count (3).
+fn expand(s: str) -> str {
+    let mut out: str = "";
+    let mut col: int = 0;
+    let mut i: int = 0;
+    while i < len(s) {
+        let ch: str = substr(s, i, 1);
+        if ch == "\t" {
+            let mut spaces: int = 4 - (col % 4);
+            while spaces > 0 {
+                out = out + " ";
+                col = col + 1;
+                spaces = spaces - 1;
+            }
+        } else {
+            out = out + ch;
+            col = col + 1;
+        }
+        i = i + 1;
+    }
+    return out;
+}
+
+fn main() {
+    let lines: [str] = ["a\tb", "ab\tc", "abcd\te"];
+    let mut i: int = 0;
+    while i < len(lines) {
+        println(expand(lines[i]));
+        i = i + 1;
+    }
+    println(len(lines));
+}

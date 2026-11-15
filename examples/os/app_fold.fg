@@ -1,0 +1,28 @@
+// fold — daily-ten 15 Nov 2026 (OS track).
+// Simulates `fold -w 10` (greedy word wrap at width 10) over
+// "the quick brown fox jumps over": "the quick", "brown fox",
+// "jumps over". Then the line count (3).
+fn main() {
+    let words: [str] = ["the", "quick", "brown", "fox", "jumps", "over"];
+    let width: int = 10;
+    let mut line: str = "";
+    let mut count: int = 0;
+    let mut i: int = 0;
+    while i < len(words) {
+        if len(line) == 0 {
+            line = words[i];
+        } else {
+            if len(line) + 1 + len(words[i]) > width {
+                println(line);
+                count = count + 1;
+                line = words[i];
+            } else {
+                line = line + " " + words[i];
+            }
+        }
+        i = i + 1;
+    }
+    println(line);
+    count = count + 1;
+    println(count);
+}

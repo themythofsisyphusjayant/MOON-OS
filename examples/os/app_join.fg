@@ -1,0 +1,33 @@
+// join — daily-ten 15 Nov 2026 (OS track).
+// Simulates `join` on two fixed tables keyed by uid: users
+// (1000 jayant, 1001 aman, 1002 teju) and shells (1000
+// /bin/bash, 1001 /bin/zsh, 1003 /bin/sh). Prints "name:shell"
+// for the two matching uids, then the match count (2).
+fn shell_for(uid: int) -> str {
+    let ids: [int] = [1000, 1001, 1003];
+    let shells: [str] = ["/bin/bash", "/bin/zsh", "/bin/sh"];
+    let mut i: int = 0;
+    while i < len(ids) {
+        if ids[i] == uid {
+            return shells[i];
+        }
+        i = i + 1;
+    }
+    return "";
+}
+
+fn main() {
+    let uids: [int] = [1000, 1001, 1002];
+    let names: [str] = ["jayant", "aman", "teju"];
+    let mut found: int = 0;
+    let mut i: int = 0;
+    while i < len(uids) {
+        let sh: str = shell_for(uids[i]);
+        if len(sh) > 0 {
+            println(names[i] + ":" + sh);
+            found = found + 1;
+        }
+        i = i + 1;
+    }
+    println(found);
+}

@@ -1,0 +1,18 @@
+// stat — daily-ten 15 Nov 2026 (OS track).
+// Simulates `stat` over a fixed file table: notes.txt 4096
+// bytes mode 644; photo.png 204800 bytes mode 644; data.bin
+// 512 bytes mode 600. Prints "name size mode" per file, then
+// the total size (4096 + 204800 + 512 = 209408).
+fn main() {
+    let names: [str] = ["notes.txt", "photo.png", "data.bin"];
+    let sizes: [int] = [4096, 204800, 512];
+    let modes: [int] = [644, 644, 600];
+    let mut total: int = 0;
+    let mut i: int = 0;
+    while i < len(names) {
+        println(names[i], sizes[i], modes[i]);
+        total = total + sizes[i];
+        i = i + 1;
+    }
+    println(total);
+}

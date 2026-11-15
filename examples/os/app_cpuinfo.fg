@@ -1,0 +1,14 @@
+// cpuinfo — daily-ten 15 Nov 2026 (OS track).
+// Simulates /proc/cpuinfo for the MOON-OS box: model
+// "Qasida RV32", 4 cores, 100 MHz, 256 KB cache. Prints each
+// field, then the aggregate MHz (4 * 100 = 400).
+fn main() {
+    println("Qasida RV32");
+    let cores: int = 4;
+    let mhz: int = 100;
+    let cache: int = 256;
+    println(cores);
+    println(mhz);
+    println(cache);
+    println(cores * mhz);
+}
