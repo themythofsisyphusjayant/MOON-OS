@@ -1,0 +1,41 @@
+// tsort — daily-ten 16 Nov 2026 (OS track).
+// Simulates `tsort` (topological sort, Kahn's algorithm)
+// over three ordering pairs: a before b, b before c,
+// a before c. Prints a, b, c, then the node count (3).
+fn main() {
+    let nodes: [str] = ["a", "b", "c"];
+    let froms: [str] = ["a", "b", "a"];
+    let tos: [str] = ["b", "c", "c"];
+    let mut done: [int] = [0, 0, 0];
+    let mut printed: int = 0;
+    while printed < 3 {
+        let mut j: int = 0;
+        while j < 3 {
+            if done[j] == 0 {
+                let mut ready: int = 1;
+                let mut k: int = 0;
+                while k < 3 {
+                    if tos[k] == nodes[j] {
+                        let mut m: int = 0;
+                        while m < 3 {
+                            if nodes[m] == froms[k] {
+                                if done[m] == 0 {
+                                    ready = 0;
+                                }
+                            }
+                            m = m + 1;
+                        }
+                    }
+                    k = k + 1;
+                }
+                if ready == 1 {
+                    println(nodes[j]);
+                    done[j] = 1;
+                    printed = printed + 1;
+                }
+            }
+            j = j + 1;
+        }
+    }
+    println(printed);
+}

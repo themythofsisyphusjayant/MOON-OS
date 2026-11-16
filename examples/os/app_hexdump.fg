@@ -1,0 +1,19 @@
+// hexdump — daily-ten 16 Nov 2026 (OS track).
+// Simulates `hexdump -C` (offset + hex byte) over the bytes
+// of "Hi!": 72 -> 48, 105 -> 69, 33 -> 21 (hex digits from
+// a lookup string). Prints "offset hex" per byte, then the
+// byte count (3).
+fn hex2(b: int) -> str {
+    let digits: str = "0123456789abcdef";
+    return substr(digits, b / 16, 1) + substr(digits, b % 16, 1);
+}
+
+fn main() {
+    let bytes: [int] = [72, 105, 33];
+    let mut i: int = 0;
+    while i < len(bytes) {
+        println(i, hex2(bytes[i]));
+        i = i + 1;
+    }
+    println(len(bytes));
+}

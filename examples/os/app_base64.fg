@@ -1,0 +1,19 @@
+// base64 — daily-ten 16 Nov 2026 (OS track).
+// Simulates `base64` encoding of two fixed 3-byte inputs:
+// "Hi!" [72, 105, 33] -> "SGkh"; "Man" [77, 97, 110]
+// -> "TWFu" (bit shifts and masks over the standard
+// alphabet). Prints each encoding, then the count (2).
+fn encode3(b0: int, b1: int, b2: int) -> str {
+    let alpha: str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    let c0: int = b0 >> 2;
+    let c1: int = ((b0 & 3) << 4) | (b1 >> 4);
+    let c2: int = ((b1 & 15) << 2) | (b2 >> 6);
+    let c3: int = b2 & 63;
+    return substr(alpha, c0, 1) + substr(alpha, c1, 1) + substr(alpha, c2, 1) + substr(alpha, c3, 1);
+}
+
+fn main() {
+    println(encode3(72, 105, 33));
+    println(encode3(77, 97, 110));
+    println(2);
+}

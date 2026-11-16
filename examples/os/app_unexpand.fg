@@ -1,0 +1,49 @@
+// unexpand — daily-ten 16 Nov 2026 (OS track).
+// Simulates `unexpand` (tab stops every 4 columns) on the
+// leading blanks of three fixed lines: "    a" -> "\ta";
+// "        b" -> "\t\tb"; "  c" stays "  c" (2 spaces is
+// not a full tab stop). Then the count (3).
+fn leading_spaces(s: str) -> int {
+    let mut n: int = 0;
+    let mut still: int = 1;
+    let mut i: int = 0;
+    while i < len(s) {
+        if still == 1 {
+            if substr(s, i, 1) == " " {
+                n = n + 1;
+            } else {
+                still = 0;
+            }
+        }
+        i = i + 1;
+    }
+    return n;
+}
+
+fn unexpand(s: str) -> str {
+    let n: int = leading_spaces(s);
+    let tabs: int = n / 4;
+    let rem: int = n % 4;
+    let mut out: str = "";
+    let mut t: int = 0;
+    while t < tabs {
+        out = out + "\t";
+        t = t + 1;
+    }
+    let mut r: int = 0;
+    while r < rem {
+        out = out + " ";
+        r = r + 1;
+    }
+    return out + substr(s, n, len(s) - n);
+}
+
+fn main() {
+    let lines: [str] = ["    a", "        b", "  c"];
+    let mut i: int = 0;
+    while i < len(lines) {
+        println(unexpand(lines[i]));
+        i = i + 1;
+    }
+    println(len(lines));
+}

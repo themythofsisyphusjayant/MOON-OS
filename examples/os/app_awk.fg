@@ -1,0 +1,16 @@
+// awk — daily-ten 16 Nov 2026 (OS track).
+// Simulates `awk '{ print $1, $3; print NF }'` over two
+// fixed records: "jayant 1001 staff" and "aman 1002 dev".
+// Prints field 1 and field 3, then NF (3), per record,
+// then the record count (2).
+fn main() {
+    let recs: [str] = ["jayant 1001 staff", "aman 1002 dev"];
+    let mut i: int = 0;
+    while i < len(recs) {
+        let fields: [str] = split(recs[i], " ");
+        println(fields[0], fields[2]);
+        println(len(fields));
+        i = i + 1;
+    }
+    println(len(recs));
+}

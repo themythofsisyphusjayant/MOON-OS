@@ -1,0 +1,18 @@
+// pr — daily-ten 16 Nov 2026 (OS track).
+// Simulates `pr -l 2` (paginate, 2 lines per page) over
+// five fixed lines: one, two, three, four, five.
+// Prints "Page N" headers, then the page count (3).
+fn main() {
+    let lines: [str] = ["one", "two", "three", "four", "five"];
+    let mut page: int = 0;
+    let mut i: int = 0;
+    while i < len(lines) {
+        if i % 2 == 0 {
+            page = page + 1;
+            println("Page", page);
+        }
+        println(lines[i]);
+        i = i + 1;
+    }
+    println(page);
+}

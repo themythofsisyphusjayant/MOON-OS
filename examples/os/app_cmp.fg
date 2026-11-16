@@ -1,0 +1,40 @@
+// cmp — daily-ten 16 Nov 2026 (OS track).
+// Simulates `cmp` over two fixed byte pairs:
+// [97, 98, 99] vs [97, 98, 100] differ first at byte 3
+// (99 vs 100); [65, 66] vs [65, 66] are identical.
+// Prints the first differing byte position (1-based, 0 if
+// identical) per pair, the two differing bytes for the
+// first pair, then the total differing-byte count (1).
+fn main() {
+    let a: [int] = [97, 98, 99];
+    let b: [int] = [97, 98, 100];
+    let mut first: int = 0;
+    let mut diffs: int = 0;
+    let mut i: int = 0;
+    while i < len(a) {
+        if a[i] != b[i] {
+            if first == 0 {
+                first = i + 1;
+            }
+            diffs = diffs + 1;
+        }
+        i = i + 1;
+    }
+    println(first);
+    println(a[first - 1], b[first - 1]);
+    let c: [int] = [65, 66];
+    let d: [int] = [65, 66];
+    let mut first2: int = 0;
+    let mut j: int = 0;
+    while j < len(c) {
+        if c[j] != d[j] {
+            if first2 == 0 {
+                first2 = j + 1;
+            }
+            diffs = diffs + 1;
+        }
+        j = j + 1;
+    }
+    println(first2);
+    println(diffs);
+}

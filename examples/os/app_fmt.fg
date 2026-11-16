@@ -1,0 +1,29 @@
+// fmt — daily-ten 16 Nov 2026 (OS track).
+// Simulates `fmt -w 20` (greedy word wrap at width 20) over
+// "pack my box with five dozen liquor jugs": "pack my box
+// with" (16), "five dozen liquor" (17), "jugs". Then the
+// line count (3).
+fn main() {
+    let words: [str] = ["pack", "my", "box", "with", "five", "dozen", "liquor", "jugs"];
+    let width: int = 20;
+    let mut line: str = "";
+    let mut count: int = 0;
+    let mut i: int = 0;
+    while i < len(words) {
+        if len(line) == 0 {
+            line = words[i];
+        } else {
+            if len(line) + 1 + len(words[i]) > width {
+                println(line);
+                count = count + 1;
+                line = words[i];
+            } else {
+                line = line + " " + words[i];
+            }
+        }
+        i = i + 1;
+    }
+    println(line);
+    count = count + 1;
+    println(count);
+}
