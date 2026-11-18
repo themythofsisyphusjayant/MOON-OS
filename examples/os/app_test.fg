@@ -1,0 +1,28 @@
+// test — daily-ten 17 Nov 2026 (OS track).
+// Simulates `test` / `[ ]`: four condition checks, each
+// printing 1 (true) or 0 (false). 5 > 3 is true (1);
+// "abc" == "abc" is true (1); 2 == 3 is false (0);
+// len("x") > 0 is true (1). Prints the check count (4).
+fn main() {
+    if 5 > 3 {
+        println(1);
+    } else {
+        println(0);
+    }
+    if "abc" == "abc" {
+        println(1);
+    } else {
+        println(0);
+    }
+    if 2 == 3 {
+        println(1);
+    } else {
+        println(0);
+    }
+    if len("x") > 0 {
+        println(1);
+    } else {
+        println(0);
+    }
+    println(4);
+}

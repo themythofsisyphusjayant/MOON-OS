@@ -1,0 +1,22 @@
+// timeout — daily-ten 18 Nov 2026 (OS track).
+// Simulates `timeout`: task A takes 5s against a 10s
+// limit, so it finishes ("ok"); task B takes 15s
+// against the same 10s limit, so it is killed
+// ("timeout"). Prints both outcomes, then the task
+// count (2).
+fn main() {
+    let limit: int = 10;
+    let task_a: int = 5;
+    let task_b: int = 15;
+    if task_a <= limit {
+        println("ok");
+    } else {
+        println("timeout");
+    }
+    if task_b <= limit {
+        println("ok");
+    } else {
+        println("timeout");
+    }
+    println(2);
+}

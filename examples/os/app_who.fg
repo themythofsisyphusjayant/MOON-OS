@@ -1,0 +1,17 @@
+// who — daily-ten 17 Nov 2026 (OS track).
+// Simulates `who`: two logged-in users with their terminal
+// and login time. Prints user, tty, time per user, then
+// the user count (2).
+fn main() {
+    let users: [str] = ["jayant", "aman"];
+    let ttys: [str] = ["tty1", "tty2"];
+    let times: [str] = ["09:00", "09:13"];
+    let mut i: int = 0;
+    while i < len(users) {
+        println(users[i]);
+        println(ttys[i]);
+        println(times[i]);
+        i = i + 1;
+    }
+    println(2);
+}

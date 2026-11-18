@@ -1,0 +1,10 @@
+// wall — daily-ten 17 Nov 2026 (OS track).
+// Simulates `wall`: broadcasts a message to all logged-in
+// users. Prints the broadcast header, the message, then
+// the number of users notified (2).
+fn main() {
+    let msg: str = "system reboot at 10:00";
+    println("Broadcast message from root:");
+    println(msg);
+    println(2);
+}

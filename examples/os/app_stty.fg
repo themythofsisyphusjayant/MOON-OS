@@ -1,0 +1,15 @@
+// stty — daily-ten 17 Nov 2026 (OS track).
+// Simulates `stty`: prints the terminal speed (9600 baud),
+// rows (24), cols (80), the cell count 24 * 80 = 1920,
+// then the setting count (3).
+fn main() {
+    let rows: int = 24;
+    let cols: int = 80;
+    println("speed 9600 baud");
+    println("rows");
+    println(rows);
+    println("cols");
+    println(cols);
+    println(rows * cols);
+    println(3);
+}

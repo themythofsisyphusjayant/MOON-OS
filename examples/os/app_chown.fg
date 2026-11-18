@@ -1,0 +1,17 @@
+// chown — daily-ten 17 Nov 2026 (OS track).
+// Simulates `chown root` on two files owned by jayant.
+// Prints each file, its old owner, then its new owner,
+// then the file count (2).
+fn main() {
+    let files: [str] = ["a.txt", "b.txt"];
+    let old_owner: str = "jayant";
+    let new_owner: str = "root";
+    let mut i: int = 0;
+    while i < len(files) {
+        println(files[i]);
+        println(old_owner);
+        println(new_owner);
+        i = i + 1;
+    }
+    println(2);
+}

@@ -1,0 +1,11 @@
+// printf — daily-ten 18 Nov 2026 (OS track).
+// Simulates `printf "%d %f %s"`: prints an int (42),
+// a float (3.5), and a string ("hi"), each on its own
+// line (str + int concatenation is not supported), then
+// the value count (3).
+fn main() {
+    println(42);
+    println(3.5);
+    println("hi");
+    println(3);
+}

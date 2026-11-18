@@ -1,0 +1,13 @@
+// watch — daily-ten 18 Nov 2026 (OS track).
+// Simulates `watch -n 1 date` run twice: two ticks of
+// the watched command. Prints "tick 1", "tick 2",
+// then the tick count (2).
+fn main() {
+    let ticks: [str] = ["tick 1", "tick 2"];
+    let mut i: int = 0;
+    while i < len(ticks) {
+        println(ticks[i]);
+        i = i + 1;
+    }
+    println(2);
+}

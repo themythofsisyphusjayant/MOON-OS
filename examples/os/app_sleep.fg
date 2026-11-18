@@ -1,0 +1,11 @@
+// sleep — daily-ten 18 Nov 2026 (OS track).
+// Simulates `sleep 3`: a countdown of 3 ticks (3, 2, 1),
+// then "slept". Prints each tick, then "slept".
+fn main() {
+    let mut n: int = 3;
+    while n > 0 {
+        println(n);
+        n = n - 1;
+    }
+    println("slept");
+}

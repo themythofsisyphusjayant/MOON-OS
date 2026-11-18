@@ -1,0 +1,13 @@
+// xargs — daily-ten 18 Nov 2026 (OS track).
+// Simulates `echo a b c | xargs echo`: applies echo to
+// each of 3 arguments. Prints "echo: a", "echo: b",
+// "echo: c", then the argument count (3).
+fn main() {
+    let args: [str] = ["a", "b", "c"];
+    let mut i: int = 0;
+    while i < len(args) {
+        println("echo: " + args[i]);
+        i = i + 1;
+    }
+    println(3);
+}

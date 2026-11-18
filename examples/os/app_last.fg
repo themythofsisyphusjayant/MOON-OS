@@ -1,0 +1,18 @@
+// last — daily-ten 18 Nov 2026 (OS track).
+// Simulates `last`: three recent logins — jayant on
+// pts/0 at 09:00, aman on pts/1 at 09:13, root on tty1
+// at 08:00. Prints user, terminal, time per login,
+// then the login count (3).
+fn main() {
+    let users: [str] = ["jayant", "aman", "root"];
+    let ttys: [str] = ["pts/0", "pts/1", "tty1"];
+    let times: [str] = ["09:00", "09:13", "08:00"];
+    let mut i: int = 0;
+    while i < len(users) {
+        println(users[i]);
+        println(ttys[i]);
+        println(times[i]);
+        i = i + 1;
+    }
+    println(3);
+}

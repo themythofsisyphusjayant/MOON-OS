@@ -1,0 +1,23 @@
+// rmdir — daily-ten 17 Nov 2026 (OS track).
+// Simulates `rmdir`: tries to remove three directories.
+// empty1 (0 entries) and empty2 (0 entries) are removed;
+// docs (3 entries) is not empty. Prints each directory with
+// its outcome, then the removed count (2).
+fn main() {
+    let dirs: [str] = ["empty1", "docs", "empty2"];
+    let entries: [int] = [0, 3, 0];
+    let mut removed: int = 0;
+    let mut i: int = 0;
+    while i < len(dirs) {
+        if entries[i] == 0 {
+            println(dirs[i]);
+            println("removed");
+            removed = removed + 1;
+        } else {
+            println(dirs[i]);
+            println("not empty");
+        }
+        i = i + 1;
+    }
+    println(removed);
+}

@@ -1,0 +1,22 @@
+// factor — daily-ten 17 Nov 2026 (OS track).
+// Simulates `factor`: prime factorisation of 60 by trial
+// division. 60 = 2 * 2 * 3 * 5. Prints each factor on its
+// own line, then the factor count (4).
+fn main() {
+    let mut n: int = 60;
+    let mut d: int = 2;
+    let mut count: int = 0;
+    while d * d <= n {
+        while n % d == 0 {
+            println(d);
+            n = n / d;
+            count = count + 1;
+        }
+        d = d + 1;
+    }
+    if n > 1 {
+        println(n);
+        count = count + 1;
+    }
+    println(count);
+}

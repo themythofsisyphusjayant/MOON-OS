@@ -1,0 +1,14 @@
+// umask — daily-ten 18 Nov 2026 (OS track).
+// Simulates `umask 022`: default file mode 666 minus
+// the mask gives 644, default directory mode 777 minus
+// the mask gives 755 (no borrows, so plain subtraction
+// matches the octal masking). Prints the mask (22),
+// the file perms (644), the dir perms (755), then the
+// perms count (2).
+fn main() {
+    let mask: int = 22;
+    println(mask);
+    println(666 - mask);
+    println(777 - mask);
+    println(2);
+}

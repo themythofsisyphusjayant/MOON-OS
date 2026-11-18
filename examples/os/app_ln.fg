@@ -1,0 +1,16 @@
+// ln — daily-ten 17 Nov 2026 (OS track).
+// Simulates `ln` (hard link): three directory entries with
+// inode numbers; readme.txt and readme_link.txt share inode
+// 1001, notes.txt has 1002. Prints each name then its inode,
+// then the entry count (3).
+fn main() {
+    let names: [str] = ["readme.txt", "readme_link.txt", "notes.txt"];
+    let inodes: [int] = [1001, 1001, 1002];
+    let mut i: int = 0;
+    while i < len(names) {
+        println(names[i]);
+        println(inodes[i]);
+        i = i + 1;
+    }
+    println(3);
+}
