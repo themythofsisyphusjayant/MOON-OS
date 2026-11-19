@@ -1,0 +1,16 @@
+// vmstat — daily-ten 19 Nov 2026 (OS track).
+// Simulates `vmstat`: 1 runnable proc, 0 blocked, 2048
+// total memory with 1024 used (1024 free), 0 swap in/out,
+// 10 blocks in, 20 blocks out. Prints r, b, free memory,
+// swap in, blocks in, blocks out, then the value count (6).
+fn main() {
+    let total: int = 2048;
+    let used: int = 1024;
+    println(1);
+    println(0);
+    println(total - used);
+    println(0);
+    println(10);
+    println(20);
+    println(6);
+}

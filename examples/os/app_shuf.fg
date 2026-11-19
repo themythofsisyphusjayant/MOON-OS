@@ -1,0 +1,13 @@
+// shuf — daily-ten 19 Nov 2026 (OS track).
+// Simulates `shuf` with a fixed deterministic shuffle:
+// rotate [10, 20, 30, 40] left by one, giving
+// [20, 30, 40, 10]. Prints each value, then the count (4).
+fn main() {
+    let a: [int] = [10, 20, 30, 40];
+    let mut i: int = 0;
+    while i < len(a) {
+        println(a[(i + 1) % 4]);
+        i = i + 1;
+    }
+    println(4);
+}

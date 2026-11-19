@@ -1,0 +1,18 @@
+// unlink — daily-ten 19 Nov 2026 (OS track).
+// Simulates `unlink tmp.txt` over [a.txt, tmp.txt, b.txt]:
+// 1 file removed, 2 remain. Prints the removed name, the
+// removed count (1), then the remaining count (2).
+fn main() {
+    let files: [str] = ["a.txt", "tmp.txt", "b.txt"];
+    let mut removed: int = 0;
+    let mut i: int = 0;
+    while i < len(files) {
+        if files[i] == "tmp.txt" {
+            removed = removed + 1;
+        }
+        i = i + 1;
+    }
+    println("tmp.txt");
+    println(removed);
+    println(len(files) - removed);
+}

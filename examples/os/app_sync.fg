@@ -1,0 +1,17 @@
+// sync — daily-ten 19 Nov 2026 (OS track).
+// Simulates `sync`: flushes the dirty buffers (data,
+// inode, dir — 3 buffers), 0 remain dirty. Prints dirty
+// (3), flushed (3), remaining (0), then the value count (3).
+fn main() {
+    let buffers: [str] = ["data", "inode", "dir"];
+    let mut flushed: int = 0;
+    let mut i: int = 0;
+    while i < len(buffers) {
+        flushed = flushed + 1;
+        i = i + 1;
+    }
+    println(len(buffers));
+    println(flushed);
+    println(len(buffers) - flushed);
+    println(3);
+}

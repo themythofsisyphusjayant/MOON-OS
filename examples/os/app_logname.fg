@@ -1,0 +1,8 @@
+// logname — daily-ten 19 Nov 2026 (OS track).
+// Simulates `logname`: prints the login name (jayant),
+// its length (6), then the value count (1).
+fn main() {
+    println("jayant");
+    println(len("jayant"));
+    println(1);
+}

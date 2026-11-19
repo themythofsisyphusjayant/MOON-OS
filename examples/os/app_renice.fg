@@ -1,0 +1,13 @@
+// renice — daily-ten 19 Nov 2026 (OS track).
+// Simulates `renice 5 1234`: pid 1234 goes from nice 0
+// to nice 5 (delta 5). Prints the pid, the old nice, the
+// new nice, then the delta (5).
+fn main() {
+    let pid: int = 1234;
+    let old: int = 0;
+    let new: int = 5;
+    println(pid);
+    println(old);
+    println(new);
+    println(new - old);
+}
