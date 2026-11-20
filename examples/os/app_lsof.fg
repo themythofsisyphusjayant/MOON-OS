@@ -1,0 +1,13 @@
+// lsof — daily-ten 20 Nov 2026 (OS track).
+// Simulates `lsof`: 3 open files with inode numbers
+// 1001, 1002, 1003. Prints each inode, then the
+// open-file count (3).
+fn main() {
+    let inodes: [int] = [1001, 1002, 1003];
+    let mut i: int = 0;
+    while i < len(inodes) {
+        println(inodes[i]);
+        i = i + 1;
+    }
+    println(3);
+}

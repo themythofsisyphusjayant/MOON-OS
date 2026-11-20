@@ -1,0 +1,13 @@
+// time — daily-ten 20 Nov 2026 (OS track).
+// Simulates `time`: real 120 ms, user 80 ms,
+// sys 40 ms. Prints real, user, sys, then
+// user + sys (120 ms).
+fn main() {
+    let real: int = 120;
+    let user: int = 80;
+    let sys: int = 40;
+    println(real);
+    println(user);
+    println(sys);
+    println(user + sys);
+}

@@ -1,0 +1,13 @@
+// dmesg — daily-ten 20 Nov 2026 (OS track).
+// Simulates `dmesg`: kernel ring buffer with 3 boot
+// messages at timestamps 0, 12, 45 ms. Prints each
+// timestamp, then the message count (3).
+fn main() {
+    let ts: [int] = [0, 12, 45];
+    let mut i: int = 0;
+    while i < len(ts) {
+        println(ts[i]);
+        i = i + 1;
+    }
+    println(3);
+}

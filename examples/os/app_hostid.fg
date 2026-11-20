@@ -1,0 +1,10 @@
+// hostid — daily-ten 20 Nov 2026 (OS track).
+// Simulates `hostid`: host id 0x007f0201 = 8323585.
+// Prints the host id, host id % 1000 (585), then
+// the host count (1).
+fn main() {
+    let hostid: int = 8323585;
+    println(hostid);
+    println(hostid % 1000);
+    println(1);
+}

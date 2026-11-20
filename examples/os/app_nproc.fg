@@ -1,0 +1,11 @@
+// nproc — daily-ten 20 Nov 2026 (OS track).
+// Simulates `nproc`: 4 CPUs, 2 threads per core.
+// Prints the CPU count (4), threads per core (2),
+// then the total thread count (8).
+fn main() {
+    let cpus: int = 4;
+    let tpc: int = 2;
+    println(cpus);
+    println(tpc);
+    println(cpus * tpc);
+}

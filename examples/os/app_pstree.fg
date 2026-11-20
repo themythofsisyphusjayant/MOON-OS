@@ -1,0 +1,16 @@
+// pstree — daily-ten 20 Nov 2026 (OS track).
+// Simulates `pstree`: process tree with pids 1 (init),
+// 42 (shell), 1234 (app). Prints each pid, the pid
+// sum (1277), then the process count (3).
+fn main() {
+    let pids: [int] = [1, 42, 1234];
+    let mut total: int = 0;
+    let mut i: int = 0;
+    while i < len(pids) {
+        println(pids[i]);
+        total = total + pids[i];
+        i = i + 1;
+    }
+    println(total);
+    println(3);
+}

@@ -1,0 +1,13 @@
+// size — daily-ten 20 Nov 2026 (OS track).
+// Simulates `size`: binary sections text 4096,
+// data 512, bss 256 bytes. Prints each section
+// size, then the total (4864).
+fn main() {
+    let text: int = 4096;
+    let data: int = 512;
+    let bss: int = 256;
+    println(text);
+    println(data);
+    println(bss);
+    println(text + data + bss);
+}
