@@ -1,0 +1,40 @@
+// finger — daily-ten 28 Nov 2026 (OS track).
+// Simulates `finger jayant` over a fixed user table of 3 users
+// (root, jayant, teju); looks "jayant" up by name scan, then
+// prints login, full name, home directory and shell, plus the
+// total user count (3) and the number of /bin/bash users (2:
+// root and jayant; teju uses /bin/zsh).
+fn main() {
+    let logins: [str] = ["root", "jayant", "teju"];
+    let names: [str] = ["Root User", "Jayant Dubey", "Tejaswini"];
+    let homes: [str] = ["/root", "/home/jayant", "/home/teju"];
+    let shells: [str] = ["/bin/bash", "/bin/bash", "/bin/zsh"];
+    let mut idx: int = -1;
+    let mut i: int = 0;
+    while i < len(logins) {
+        if logins[i] == "jayant" {
+            idx = i;
+        }
+        i = i + 1;
+    }
+    print("Login: ");
+    println(logins[idx]);
+    print("Name: ");
+    println(names[idx]);
+    print("Directory: ");
+    println(homes[idx]);
+    print("Shell: ");
+    println(shells[idx]);
+    print("Total users: ");
+    println(len(logins));
+    let mut bash: int = 0;
+    let mut j: int = 0;
+    while j < len(shells) {
+        if shells[j] == "/bin/bash" {
+            bash = bash + 1;
+        }
+        j = j + 1;
+    }
+    print("Bash users: ");
+    println(bash);
+}

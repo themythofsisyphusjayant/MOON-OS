@@ -1,0 +1,36 @@
+// blkid — daily-ten 28 Nov 2026 (OS track).
+// Simulates `blkid`: 3 fixed block devices, each with a
+// name, a UUID and a filesystem TYPE. Prints one line per
+// device (`name: UUID="..." TYPE="..."`), then the device
+// count (3) and the count of devices whose TYPE is "ext4"
+// (1, computed by a scan loop, not a literal).
+// Fixed inputs:
+//   /dev/sda1      UUID a1b2-c3d4-e5f6  TYPE ext4
+//   /dev/sdb1      UUID 7890-abcd-1234  TYPE xfs
+//   /dev/nvme0n1p1 UUID 5678-ef90-2468  TYPE vfat
+// Expected stdout (hand-computed before the first run):
+//   /dev/sda1: UUID="a1b2-c3d4-e5f6" TYPE="ext4"
+//   /dev/sdb1: UUID="7890-abcd-1234" TYPE="xfs"
+//   /dev/nvme0n1p1: UUID="5678-ef90-2468" TYPE="vfat"
+//   3
+//   1
+fn main() {
+    let devs: [str] = ["/dev/sda1", "/dev/sdb1", "/dev/nvme0n1p1"];
+    let uuids: [str] = ["a1b2-c3d4-e5f6", "7890-abcd-1234", "5678-ef90-2468"];
+    let types: [str] = ["ext4", "xfs", "vfat"];
+    let mut i: int = 0;
+    while i < len(devs) {
+        println(devs[i] + ": UUID=\"" + uuids[i] + "\" TYPE=\"" + types[i] + "\"");
+        i = i + 1;
+    }
+    let mut ext4: int = 0;
+    i = 0;
+    while i < len(types) {
+        if types[i] == "ext4" {
+            ext4 = ext4 + 1;
+        }
+        i = i + 1;
+    }
+    println(len(devs));
+    println(ext4);
+}

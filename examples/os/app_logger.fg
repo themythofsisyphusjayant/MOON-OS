@@ -1,0 +1,22 @@
+// logger — daily-ten 28 Nov 2026 (OS track).
+// Simulates the Unix `logger` command: syslog message encoding.
+// Fixed inputs: 3 messages, (facility, priority) = (1, 6) user/info,
+// (4, 3) auth/err, (3, 5) daemon/notice. priority_value = facility * 8 + priority.
+// Expected output, hand-computed: 1 6 14 / 4 3 35 / 3 5 29, then count 3, sum 78.
+// (14 = 1*8+6, 35 = 4*8+3, 29 = 3*8+5; 14+35+29 = 78.)
+fn main() {
+    let fac: [int] = [1, 4, 3];
+    let pri: [int] = [6, 3, 5];
+    let mut sum: int = 0;
+    let mut i: int = 0;
+    while i < 3 {
+        let value: int = fac[i] * 8 + pri[i];
+        println(fac[i]);
+        println(pri[i]);
+        println(value);
+        sum = sum + value;
+        i = i + 1;
+    }
+    println(3);
+    println(sum);
+}

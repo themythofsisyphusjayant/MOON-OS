@@ -1,0 +1,31 @@
+// killall — daily-ten 28 Nov 2026 (OS track).
+// Fixed process table (5 processes): pid 101 "qasida", pid 137 "qasida",
+// pid 142 "qasida", pid 200 "sh", pid 300 "http". Target name "qasida",
+// signal TERM (15). Expected output (hand-computed):
+//   101 TERM
+//   137 TERM
+//   142 TERM
+//   3
+//   2
+// (3 processes signaled, 2 untouched.)
+
+fn main() {
+    let pids: [int] = [101, 137, 142, 200, 300];
+    let names: [str] = ["qasida", "qasida", "qasida", "sh", "http"];
+    let target: str = "qasida";
+    let sig: str = "TERM";
+    let mut signaled: int = 0;
+    let mut untouched: int = 0;
+    let mut i: int = 0;
+    while i < len(pids) {
+        if names[i] == target {
+            println(pids[i], sig);
+            signaled = signaled + 1;
+        } else {
+            untouched = untouched + 1;
+        }
+        i = i + 1;
+    }
+    println(signaled);
+    println(untouched);
+}

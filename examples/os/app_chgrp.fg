@@ -1,0 +1,28 @@
+// chgrp — daily-ten 28 Nov 2026 (OS track).
+// Simulates `chgrp staff` on the files in group users.
+// Files: report.txt (jayant:users), notes.md (jayant:users),
+// todo.txt (jayant:dev). The two users files move to group
+// staff (gid 20); todo.txt keeps group dev (gid 100).
+// Prints each changed file, its new group, then the
+// changed count (2) and the unchanged count (1).
+fn main() {
+    let files: [str] = ["report.txt", "notes.md", "todo.txt"];
+    let owners: [str] = ["jayant", "jayant", "jayant"];
+    let groups: [str] = ["users", "users", "dev"];
+    let new_group: str = "staff";
+    let mut changed: int = 0;
+    let mut unchanged: int = 0;
+    let mut i: int = 0;
+    while i < len(files) {
+        if groups[i] == "users" {
+            println(files[i]);
+            println(new_group);
+            changed = changed + 1;
+        } else {
+            unchanged = unchanged + 1;
+        }
+        i = i + 1;
+    }
+    println(changed);
+    println(unchanged);
+}

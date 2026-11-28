@@ -44,20 +44,20 @@ The language is the foundation: Qasida's freestanding mode (`--freestanding`), r
 
 ## Contents
 
-Counted from this tree, 21 Nov 2026 (re-verified for this README — same counts as the first pass):
+Counted from this tree, 28 Nov 2026 (re-verified for this README):
 
 | Measure | Value |
 |---|---|
-| Qasida sources | 246 `.fg` files — 22,112 lines |
+| Qasida sources | 256 `.fg` files — 22,415 lines |
 | Kernel sources | 125 `kernel_*.fg` — 18,088 lines |
-| App sources | 120 `app_*.fg` — 2,616 lines |
+| App sources | 130 `app_*.fg` — 2,919 lines |
 | JalOS (simulated prototype) | `jalos.fg` — 1,408 lines |
 | Unified kernel | `kernel_unified.fg` — 866 lines |
-| Test files | 127 `test_kernel_*.py` — 9,350 lines, plus 8 daily app-batch tests (13–20 Nov 2026) |
+| Test files | 127 `test_kernel_*.py` — 9,350 lines, plus 9 daily app-batch tests (13–20 Nov + 28 Nov 2026) |
 
 ![Lines of Qasida by component](docs/composition.png)
 
-The kernels dominate the tree (18,088 of 22,112 lines); the 120 app sources are small, single-purpose programs — each one a Unix-style utility reimplemented in Qasida.
+The kernels dominate the tree (18,088 of 22,415 lines); the 130 app sources are small, single-purpose programs — each one a Unix-style utility reimplemented in Qasida.
 
 ## Progress
 
@@ -68,11 +68,11 @@ The kernels dominate the tree (18,088 of 22,112 lines); the 120 app sources are 
 | Unified kernel | All Phase F subsystems in one kernel, one memory map; idle task integrated 13 Nov 2026 |
 | Desktop | Interactive desktop (pointer, drag, close, live clock), Finder, Terminal — SOC2-only tests, currently skipped (see below) |
 | Idle task (13 Nov 2026) | `sleep()` with no ready task now blocks instead of resuming immediately |
-| Daily app batches (13–20 Nov 2026) | 10 native OS apps per day, each with a test asserting exact stdout under both compilers |
+| Daily app batches (13–20 Nov + 28 Nov 2026) | 10 native OS apps per day, each with a test asserting exact stdout under both compilers |
 
-### Daily app batches — 80 apps in 8 days
+### Daily app batches — 90 apps in 9 days
 
-Eighty of the 120 app sources landed 13–20 Nov 2026, ten a day, each batch pushed the same day with its test (`tests/test_daily_YYYYMMDD_os.py`, 40 checks, 0 failures, both compilers — per each batch's push commit). The 17–18 Nov push covered two days' batches (20 apps) in one commit.
+Ninety of the 130 app sources landed 13–20 Nov and 28 Nov 2026, ten a day, each batch pushed the same day with its test (`tests/test_daily_YYYYMMDD_os.py`, 40 checks, 0 failures, both compilers — per each batch's push commit). The 17–18 Nov push covered two days' batches (20 apps) in one commit.
 
 | Date | Apps (10 per day) |
 |---|---|
@@ -84,6 +84,7 @@ Eighty of the 120 app sources landed 13–20 Nov 2026, ten a day, each batch pus
 | 18 Nov | sleep, true, false, xargs, find, watch, timeout, printf, last, umask |
 | 19 Nov | dd, nohup, sync, tar, shuf, groups, logname, unlink, renice, vmstat |
 | 20 Nov | dmesg, lspci, lsblk, pstree, lsof, printenv, nproc, hostid, time, size |
+| 28 Nov | chgrp, pgrep, pidof, killall, w, finger, logger, iostat, lscpu, blkid |
 
 ![Cumulative native OS apps, 13–20 Nov 2026](docs/growth.png)
 
@@ -104,6 +105,8 @@ Full standalone run, 13 Nov 2026, from this tree (fresh venv, `pip install qasid
 The unified kernel's shell tour answers `h p s w m f g n q` (help, processes, shell, window, memory, files, GUI, network, quit) and halts cleanly with `BYE`. When no task is ready, the scheduler runs an idle task that waits for the next timer interrupt.
 
 The 13 Nov run predates the 14–20 Nov app batches. Those batches were each verified at push time (40 checks, 0 failures, both compilers — see the table above); a fresh full-suite run after the 20 Nov batch has not been recorded yet.
+
+Fresh full standalone run, 28 Nov 2026 (same runner, `blackmoon-iso/daily-20261128/os_fullrun.log`): **118 pass / 0 fail / 9 skip of 127 kernel tests, 24.6 s** — the kernel suite is unchanged-green after the 28 Nov app batch. The 28 Nov batch itself is covered by its own test, `tests/test_daily_20261128_os.py` — **40 checks, 0 failures, both compilers** (chgrp, pgrep, pidof, killall, w, finger, logger, iostat, lscpu, blkid).
 
 ## Reproduce
 

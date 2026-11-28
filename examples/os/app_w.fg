@@ -1,0 +1,34 @@
+// w — daily-ten 28 Nov 2026 (OS track).
+// Simulates `w`: who is logged in + uptime + load averages.
+// Fixed inputs: uptime 125 minutes; 3 users (jayant on tty1
+// since 09:00, aman on tty2 since 09:13, teju on tty3 since
+// 10:25); load averages 0.12, 0.45, 0.08 stored as fixed-point
+// hundredths (12, 45, 8 — integers only, no floats).
+// Expected stdout (hand-computed):
+// 125
+// jayant tty1 09:00
+// aman tty2 09:13
+// teju tty3 10:25
+// 12
+// 45
+// 8
+// 3
+fn main() {
+    let uptime_min: int = 125;
+    let users: [str] = ["jayant", "aman", "teju"];
+    let ttys: [str] = ["tty1", "tty2", "tty3"];
+    let times: [str] = ["09:00", "09:13", "10:25"];
+    let loads: [int] = [12, 45, 8];
+    println(uptime_min);
+    let mut i: int = 0;
+    while i < len(users) {
+        println(users[i] + " " + ttys[i] + " " + times[i]);
+        i = i + 1;
+    }
+    let mut j: int = 0;
+    while j < len(loads) {
+        println(loads[j]);
+        j = j + 1;
+    }
+    println(len(users));
+}

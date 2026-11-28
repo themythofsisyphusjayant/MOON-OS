@@ -1,0 +1,22 @@
+// lscpu — daily-ten 28 Nov 2026 (OS track).
+// Simulates the Unix `lscpu` command for the MOON-OS box.
+// Fixed inputs: arch "big32", 1 socket, 4 cores per socket,
+// 2 threads per core, L1 32 KB, L2 256 KB. Hand-computed:
+// total CPUs 1*4*2 = 8; total cache 32+256 = 288 KB.
+// Expected stdout (one value per line):
+// big32, 1, 4, 2, 8, 32, 256, 288.
+fn main() {
+    println("big32");
+    let sockets: int = 1;
+    let cores: int = 4;
+    let threads: int = 2;
+    let l1: int = 32;
+    let l2: int = 256;
+    println(sockets);
+    println(cores);
+    println(threads);
+    println(sockets * cores * threads);
+    println(l1);
+    println(l2);
+    println(l1 + l2);
+}

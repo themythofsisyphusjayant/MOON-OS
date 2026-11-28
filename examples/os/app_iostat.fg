@@ -1,0 +1,29 @@
+// iostat — daily-ten 28 Nov 2026 (OS track).
+// Three fixed block devices, read/write KB: sda 51200/25600,
+// sdb 10240/5120, nvme0n1 204800/102400. Per-device total is
+// read + write; grand totals are the sums over all devices.
+// Expected stdout (hand-computed):
+// sda 51200 25600 76800
+// sdb 10240 5120 15360
+// nvme0n1 204800 102400 307200
+// 266240
+// 133120
+// 3
+fn main() {
+    let names: [str] = ["sda", "sdb", "nvme0n1"];
+    let read_kb: [int] = [51200, 10240, 204800];
+    let write_kb: [int] = [25600, 5120, 102400];
+    let mut total_read: int = 0;
+    let mut total_write: int = 0;
+    let mut i: int = 0;
+    while i < len(names) {
+        let total: int = read_kb[i] + write_kb[i];
+        println(names[i], read_kb[i], write_kb[i], total);
+        total_read = total_read + read_kb[i];
+        total_write = total_write + write_kb[i];
+        i = i + 1;
+    }
+    println(total_read);
+    println(total_write);
+    println(len(names));
+}
